@@ -1,5 +1,6 @@
 import { Project } from "@/types/project";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ProjectCardProps {
   project: Project;
@@ -83,14 +84,16 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </div>
 
         {/* Action button */}
-        <div className="text-center mt-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-500">
-          <button className="inline-flex items-center px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full font-medium hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105">
-            <span className="mr-2">Voir le projet</span>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </button>
-        </div>
+        {project.platformUrl && (
+          <div className="text-center mt-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-500">
+            <Link href={project.platformUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full font-medium hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105">
+              <span className="mr-2">Voir la plateforme</span>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Border avec glass effect */}

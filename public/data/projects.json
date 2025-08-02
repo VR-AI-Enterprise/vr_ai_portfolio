@@ -38,5 +38,29 @@
     "imageUrl": "/images/latribu.png",
     "techStack": ["Unity", "VR", "Photon", "C#", "Blender"],
     "platformUrl": "https://latrib.io/"
+  },
+  {
+    "id": 6,
+    "title": "FG Influence",
+    "description": "Jeu VR immersif multi-joueurs combinant exploration, puzzle et aventure. Environnements photoréalistes avec système de physique avancé et narration interactive adaptative selon les choix du joueur.",
+    "imageUrl": "/images/fginfluence.png",
+    "techStack": ["Unity", "VR", "Photon", "C#", "Blender"],
+    "platformUrl": "https://fginfluence.com/"
+  }
+  ,{
+    "id": 7,
+    "title": "DressLike",
+    "description": "Jeu VR immersif multi-joueurs combinant exploration, puzzle et aventure. Environnements photoréalistes avec système de physique avancé et narration interactive adaptative selon les choix du joueur.",
+    "imageUrl": "/images/dresslike.png",
+    "techStack": ["Unity", "VR", "Photon", "C#", "Blender"],
+    "platformUrl": "https://dresslike.fr/"
+  },
+  {
+    "id": 8,
+    "title": "Klumer",
+    "description": "Jeu VR immersif multi-joueurs combinant exploration, puzzle et aventure. Environnements photoréalistes avec système de physique avancé et narration interactive adaptative selon les choix du joueur.",
+    "imageUrl": "/images/klumer.png",
+    "techStack": ["Unity", "VR", "Photon", "C#", "Blender"],
+    "platformUrl": "https://latrib.io/"
   }
 ]

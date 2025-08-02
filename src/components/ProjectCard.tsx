@@ -48,7 +48,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       {/* Overlay hover avec description et tech stack */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-center p-6">
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-center p-6 z-20">
         {/* Icône centrale */}
         <div className="text-center mb-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">
           <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
@@ -97,7 +97,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       {/* Border avec glass effect */}
-      <div className="absolute inset-0 border border-white/20 dark:border-white/10 rounded-xl group-hover:border-blue-400/50 dark:group-hover:border-blue-500/30 transition-colors duration-500"></div>
+      <div className="absolute inset-0 border border-white/20 dark:border-white/10 rounded-xl group-hover:border-blue-400/50 dark:group-hover:border-blue-500/30 transition-colors duration-500 z-10"></div>
     </div>
   );
 }

@@ -59,6 +59,15 @@ export default function ProjectList() {
     );
   }
 
+  // Mapping des positions par ID de projet pour un positionnement robuste
+  const positionMap: { [key: number]: { left: string; top: string } } = {
+    1: { left: '0%', top: '2rem' },      // Look
+    2: { left: '40%', top: '20rem' },    // Institut Français Togo
+    3: { left: '-10%', top: '37rem' },   // Affund
+    4: { left: '60%', top: '39rem' },    // Growl
+    5: { left: '20%', top: '65rem' },    // LaTribu
+  };
+
   return (
     <section className="w-full py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -84,22 +93,11 @@ export default function ProjectList() {
             ))}
           </div>
           
-          {/* Layout superposé pour desktop - Positions élargies */}
+          {/* Layout superposé pour desktop - Positions basées sur l'ID */}
           <div className="hidden lg:block">
             {projects.map((project, index) => {
-              // 5 positions fixes et équilibrées pour 5 projets
-              const positions = [
-                { left: '0%', top: '2rem' },    // VR Training
-                { left: '40%', top: '20rem' },   // AI Vision
-                { left: '-10%', top: '37rem' },   // Metaverse
-                { left: '60%', top: '39rem' },   // AI Assistant
-                { left: '20%', top: '65em' },  // VR Gaming
-              ];
-              
-              const position = positions[index] || { left: '50%', top: '0rem' };
-              
-              // Z-index fixe pour chaque carte, hover à z-[9999] pour premier plan
-              const baseZIndex = 10 + index; // Chaque carte a un z-index légèrement différent
+              const position = positionMap[project.id] || { left: '50%', top: '0rem' };
+              const baseZIndex = 10 + index;
               
               return (
                 <div

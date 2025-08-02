@@ -49,39 +49,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
       {/* Overlay hover avec description et tech stack */}
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-center p-6 z-20">
-        {/* Icône centrale */}
-        <div className="text-center mb-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-100">
-          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </div>
-        </div>
+       
 
-        {/* Titre en grand */}
-        <h3 className="text-2xl font-bold text-white mb-4 text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-200">
-          {project.title}
-        </h3>
-        
-        {/* Description */}
-        <p className="text-gray-200 text-sm leading-relaxed mb-6 text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-300">
-          {project.description}
-        </p>
-        
-        {/* Tech Stack */}
-        <div className="flex flex-wrap gap-2 justify-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-400">
-          {project.techStack.map((tech, index) => (
-            <span
-              key={index}
-              className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/20 text-white backdrop-blur-sm border border-white/30 hover:bg-white/30 transition-colors duration-300"
-              style={{
-                animationDelay: `${index * 100}ms`
-              }}
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
+       
+       
+       
 
         {/* Action button */}
         {project.platformUrl && (

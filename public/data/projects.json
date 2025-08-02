@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "Look",
-    "description": "Plateforme de formation immersive en réalité virtuelle pour l'industrie. Cette solution permet aux entreprises de former leurs employés dans un environnement sûr et contrôlé, réduisant les coûts et les risques tout en maximisant l'apprentissage.",
+    "description": "Votre boutique de lux en ligne !",
     "imageUrl": "/images/look.png",
     "techStack": ["Unity", "VR", "C#", "WebXR", "Oculus SDK"],
     "platformUrl": "https://look.vr-ai.co"
@@ -10,7 +10,7 @@
   {
     "id": 2,
     "title": "Institut Français Togo",
-    "description": "Système d'intelligence artificielle pour l'analyse d'images et la détection d'objets en temps réel. Intégration de modèles de deep learning pour des applications industrielles, sécuritaires et commerciales avec une précision de 98%.",
+    "description": "Vivons toutes les cultures ensembles",
     "imageUrl": "/images/ift.png",
     "techStack": ["Python", "TensorFlow", "OpenCV", "YOLO", "PyTorch"],
     "platformUrl": "https://institutfrancais-togo.com/"
@@ -26,7 +26,7 @@
   {
     "id": 4,
     "title": "Growl",
-    "description": "Assistant intelligent basé sur l'IA pour automatiser les tâches répétitives. Traitement du langage naturel et apprentissage adaptatif pour améliorer l'efficacité opérationnelle des entreprises de 45%.",
+    "description": "Une nouvelle ère d'apprentissage commence ici.",
     "imageUrl": "/images/growl.png",
     "techStack": ["Next.js", "OpenAI", "NLP", "TypeScript", "GPT-4"],
     "platformUrl": "https://growl.vr-ai.co/"
@@ -42,7 +42,7 @@
   {
     "id": 6,
     "title": "FG Influence",
-    "description": "Jeu VR immersif multi-joueurs combinant exploration, puzzle et aventure. Environnements photoréalistes avec système de physique avancé et narration interactive adaptative selon les choix du joueur.",
+    "description": "Marketing d'influence pour vos idées",
     "imageUrl": "/images/fginfluence.png",
     "techStack": ["Unity", "VR", "Photon", "C#", "Blender"],
     "platformUrl": "https://fginfluence.com/"
@@ -50,7 +50,7 @@
   ,{
     "id": 7,
     "title": "DressLike",
-    "description": "Jeu VR immersif multi-joueurs combinant exploration, puzzle et aventure. Environnements photoréalistes avec système de physique avancé et narration interactive adaptative selon les choix du joueur.",
+    "description": "DressLike fait de la seconde main un levier de croissance.",
     "imageUrl": "/images/dresslike.png",
     "techStack": ["Unity", "VR", "Photon", "C#", "Blender"],
     "platformUrl": "https://dresslike.fr/"
@@ -58,9 +58,17 @@
   {
     "id": 8,
     "title": "Klumer",
-    "description": "Jeu VR immersif multi-joueurs combinant exploration, puzzle et aventure. Environnements photoréalistes avec système de physique avancé et narration interactive adaptative selon les choix du joueur.",
+    "description": "Simplifiez vos votes en ligne en un clic !",
     "imageUrl": "/images/klumer.png",
     "techStack": ["Unity", "VR", "Photon", "C#", "Blender"],
     "platformUrl": "https://latrib.io/"
+  },
+  {
+    "id": 9,
+    "title": "Ndupé",
+    "description": "Logiciel POS pour restaurant simplifié !",
+    "imageUrl": "/images/ndupe.png",
+    "techStack": ["Unity", "VR", "Photon", "C#", "Blender"],
+    "platformUrl": "https://table.ndupe.com/"
   }
 ]

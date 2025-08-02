@@ -69,6 +69,7 @@ export default function ProjectList() {
     6: { left: '70%', top: '5rem' },     // FG Influence
     7: { left: '-5%', top: '75rem' },    // DressLike
     8: { left: '55%', top: '80rem' },    // Klumer
+       9: { left: '30%', top: '100rem' },    // Affund
   };
 
   return (

@@ -66,6 +66,9 @@ export default function ProjectList() {
     3: { left: '-10%', top: '37rem' },   // Affund
     4: { left: '60%', top: '39rem' },    // Growl
     5: { left: '20%', top: '65rem' },    // LaTribu
+    6: { left: '70%', top: '5rem' },     // FG Influence
+    7: { left: '-5%', top: '75rem' },    // DressLike
+    8: { left: '55%', top: '80rem' },    // Klumer
   };
 
   return (
@@ -84,9 +87,9 @@ export default function ProjectList() {
           </div>
         </div>
         
-        {/* Layout masonry simplifié - 5 projets fixes */}
-        <div className="relative min-h-[1000px] lg:min-h-[1400px] py-8">
-          {/* Grille mobile pour 5 projets */}
+        {/* Layout masonry pour 8 projets */}
+        <div className="relative min-h-[1000px] lg:min-h-[2000px] py-8">
+          {/* Grille mobile pour 8 projets */}
           <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-8">
             {projects.map((project) => (
               <ProjectCard key={project.id} project={project} />

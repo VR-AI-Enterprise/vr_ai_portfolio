@@ -1,0 +1,123 @@
+"use client";
+
+import { Project } from "@/types/project";
+import { useEffect, useState } from "react";
+import ProjectCard from "./ProjectCard";
+
+export default function ProjectList() {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await fetch("/data/projects.json");
+        if (!response.ok) {
+          throw new Error("Erreur lors du chargement des projets");
+        }
+        const data: Project[] = await response.json();
+        setProjects(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Une erreur est survenue");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="w-full py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center relative">
+            <div className="absolute inset-0 bg-background/30 dark:bg-background/20 backdrop-blur-sm rounded-xl"></div>
+            <div className="relative py-12">
+              <div className="animate-spin w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full mx-auto"></div>
+              <p className="mt-4 text-foreground/80">Chargement des projets...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="w-full py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center relative">
+            <div className="absolute inset-0 bg-background/30 dark:bg-background/20 backdrop-blur-sm rounded-xl border border-red-200/30 dark:border-red-800/30"></div>
+            <div className="relative py-12">
+              <p className="text-red-600 dark:text-red-400">Erreur : {error}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="w-full py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Container avec glass morphism pour la section titre */}
+        <div className="text-center mb-12 relative">
+          <div className="absolute inset-0 bg-background/20 dark:bg-background/10 backdrop-blur-sm rounded-2xl"></div>
+          <div className="relative py-8 px-6">
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+              Nos Projets
+            </h2>
+            <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
+              Découvrez nos réalisations innovantes dans les domaines de la réalité virtuelle et de l&apos;intelligence artificielle.
+            </p>
+          </div>
+        </div>
+        
+        {/* Layout masonry simplifié - 5 projets fixes */}
+        <div className="relative min-h-[1000px] lg:min-h-[1400px] py-8">
+          {/* Grille mobile pour 5 projets */}
+          <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-8">
+            {projects.map((project) => (
+              <ProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+          
+          {/* Layout superposé pour desktop - Positions élargies */}
+          <div className="hidden lg:block">
+            {projects.map((project, index) => {
+              // 5 positions fixes et équilibrées pour 5 projets
+              const positions = [
+                { left: '0%', top: '2rem' },    // VR Training
+                { left: '40%', top: '20rem' },   // AI Vision
+                { left: '-10%', top: '37rem' },   // Metaverse
+                { left: '60%', top: '39rem' },   // AI Assistant
+                { left: '20%', top: '65em' },  // VR Gaming
+              ];
+              
+              const position = positions[index] || { left: '50%', top: '0rem' };
+              
+              // Z-index fixe pour chaque carte, hover à z-[9999] pour premier plan
+              const baseZIndex = 10 + index; // Chaque carte a un z-index légèrement différent
+              
+              return (
+                <div
+                  key={project.id}
+                  className="absolute w-96 transition-all duration-500 group hover:z-[9999]"
+                  style={{
+                    left: position.left,
+                    top: position.top,
+                    zIndex: 999,
+                  }}
+                >
+                  <ProjectCard project={project} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

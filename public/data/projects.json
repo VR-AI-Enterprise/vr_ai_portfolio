@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "title": "VR Immersive Training",
+    "description": "Plateforme de formation immersive en réalité virtuelle pour l'industrie. Cette solution permet aux entreprises de former leurs employés dans un environnement sûr et contrôlé, réduisant les coûts et les risques tout en maximisant l'apprentissage.",
+    "imageUrl": " ",
+    "techStack": ["Unity", "VR", "C#", "WebXR", "Oculus SDK"]
+  },
+  {
+    "id": 2,
+    "title": "AI Vision Analytics",
+    "description": "Système d'intelligence artificielle pour l'analyse d'images et la détection d'objets en temps réel. Intégration de modèles de deep learning pour des applications industrielles, sécuritaires et commerciales avec une précision de 98%.",
+    "imageUrl": "/images/ai-vision.webp",
+    "techStack": ["Python", "TensorFlow", "OpenCV", "YOLO", "PyTorch"]
+  },
+  {
+    "id": 3,
+    "title": "Metaverse Showcase",
+    "description": "Expérience métaverse interactive pour présenter des produits et services. Interface immersive permettant aux utilisateurs d'explorer des environnements virtuels personnalisés avec interactions sociales en temps réel.",
+    "imageUrl": "/images/metaverse.webp",
+    "techStack": ["Three.js", "WebXR", "React", "Node.js", "WebGL"]
+  },
+  {
+    "id": 4,
+    "title": "Smart AI Assistant",
+    "description": "Assistant intelligent basé sur l'IA pour automatiser les tâches répétitives. Traitement du langage naturel et apprentissage adaptatif pour améliorer l'efficacité opérationnelle des entreprises de 45%.",
+    "imageUrl": "/images/ai-assistant.webp",
+    "techStack": ["Next.js", "OpenAI", "NLP", "TypeScript", "GPT-4"]
+  },
+  {
+    "id": 5,
+    "title": "VR Gaming Experience",
+    "description": "Jeu VR immersif multi-joueurs combinant exploration, puzzle et aventure. Environnements photoréalistes avec système de physique avancé et narration interactive adaptative selon les choix du joueur.",
+    "imageUrl": "/images/vr-gaming.webp",
+    "techStack": ["Unity", "VR", "Photon", "C#", "Blender"]
+  }
+]

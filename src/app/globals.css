@@ -24,3 +24,530 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Custom animations for the header */
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Line clamp utility for project descriptions */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* === ANIMATIONS BACKGROUND HEADER === */
+
+/* Animation de la grille */
+@keyframes grid-move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 32px 32px;
+  }
+}
+
+.animate-grid-move {
+  animation: grid-move 20s linear infinite;
+}
+
+/* Animations des éléments flottants */
+@keyframes float-1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(10px, -15px) scale(1.05);
+  }
+  50% {
+    transform: translate(-5px, -25px) scale(0.95);
+  }
+  75% {
+    transform: translate(-15px, -10px) scale(1.02);
+  }
+}
+
+@keyframes float-2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(-20px, 10px) scale(1.08);
+  }
+  66% {
+    transform: translate(15px, -20px) scale(0.92);
+  }
+}
+
+@keyframes float-3 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  40% {
+    transform: translate(25px, 15px) scale(1.1);
+  }
+  80% {
+    transform: translate(-10px, 20px) scale(0.9);
+  }
+}
+
+.animate-float-1 {
+  animation: float-1 15s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: float-2 12s ease-in-out infinite;
+}
+
+.animate-float-3 {
+  animation: float-3 18s ease-in-out infinite;
+}
+
+/* Animations des particules */
+@keyframes particle-1 {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(100px, -80px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-2 {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-120px, 90px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-3 {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(80px, -100px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-4 {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-90px, -70px) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-5 {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-110px, 85px) scale(0);
+    opacity: 0;
+  }
+}
+
+.animate-particle-1 {
+  animation: particle-1 8s ease-out infinite;
+}
+
+.animate-particle-2 {
+  animation: particle-2 10s ease-out infinite 2s;
+}
+
+.animate-particle-3 {
+  animation: particle-3 12s ease-out infinite 4s;
+}
+
+.animate-particle-4 {
+  animation: particle-4 9s ease-out infinite 1s;
+}
+
+.animate-particle-5 {
+  animation: particle-5 11s ease-out infinite 3s;
+}
+
+/* Animation du dégradé */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+/* Animations des lignes de scan */
+@keyframes scan-horizontal {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes scan-horizontal-reverse {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes scan-vertical {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.animate-scan-horizontal {
+  animation: scan-horizontal 8s ease-in-out infinite;
+}
+
+.animate-scan-horizontal-reverse {
+  animation: scan-horizontal-reverse 12s ease-in-out infinite 4s;
+}
+
+.animate-scan-vertical {
+  animation: scan-vertical 10s ease-in-out infinite 2s;
+}
+
+/* === ANIMATIONS BULLES === */
+
+/* Keyframes pour les bulles qui montent */
+@keyframes bubble-rise-1 {
+  0% {
+    transform: translateY(0) translateX(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(20px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes bubble-rise-2 {
+  0% {
+    transform: translateY(0) translateX(0) scale(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(-15px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes bubble-rise-3 {
+  0% {
+    transform: translateY(0) translateX(0) scale(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(30px) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@keyframes bubble-rise-4 {
+  0% {
+    transform: translateY(0) translateX(0) scale(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(-10px) scale(1.4);
+    opacity: 0;
+  }
+}
+
+@keyframes bubble-rise-5 {
+  0% {
+    transform: translateY(0) translateX(0) scale(0);
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  82% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(25px) scale(0.9);
+    opacity: 0;
+  }
+}
+
+@keyframes bubble-rise-6 {
+  0% {
+    transform: translateY(0) translateX(0) scale(0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(-20px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+/* Animation classes pour bulles grandes (1-6) */
+.animate-bubble-rise-1 {
+  animation: bubble-rise-1 8s ease-out infinite;
+}
+
+.animate-bubble-rise-2 {
+  animation: bubble-rise-2 12s ease-out infinite 2s;
+}
+
+.animate-bubble-rise-3 {
+  animation: bubble-rise-3 10s ease-out infinite 4s;
+}
+
+.animate-bubble-rise-4 {
+  animation: bubble-rise-4 14s ease-out infinite 1s;
+}
+
+.animate-bubble-rise-5 {
+  animation: bubble-rise-5 9s ease-out infinite 3s;
+}
+
+.animate-bubble-rise-6 {
+  animation: bubble-rise-6 11s ease-out infinite 5s;
+}
+
+/* Animation classes pour bulles moyennes (7-12) */
+.animate-bubble-rise-7 {
+  animation: bubble-rise-1 15s ease-out infinite 6s;
+}
+
+.animate-bubble-rise-8 {
+  animation: bubble-rise-2 13s ease-out infinite 8s;
+}
+
+.animate-bubble-rise-9 {
+  animation: bubble-rise-3 16s ease-out infinite 2s;
+}
+
+.animate-bubble-rise-10 {
+  animation: bubble-rise-4 11s ease-out infinite 7s;
+}
+
+.animate-bubble-rise-11 {
+  animation: bubble-rise-5 14s ease-out infinite 9s;
+}
+
+.animate-bubble-rise-12 {
+  animation: bubble-rise-6 12s ease-out infinite 1s;
+}
+
+/* Animation classes pour bulles petites (13-19) */
+.animate-bubble-rise-13 {
+  animation: bubble-rise-1 18s ease-out infinite 10s;
+}
+
+.animate-bubble-rise-14 {
+  animation: bubble-rise-2 20s ease-out infinite 12s;
+}
+
+.animate-bubble-rise-15 {
+  animation: bubble-rise-3 17s ease-out infinite 14s;
+}
+
+.animate-bubble-rise-16 {
+  animation: bubble-rise-4 22s ease-out infinite 11s;
+}
+
+.animate-bubble-rise-17 {
+  animation: bubble-rise-5 19s ease-out infinite 13s;
+}
+
+.animate-bubble-rise-18 {
+  animation: bubble-rise-6 21s ease-out infinite 15s;
+}
+
+.animate-bubble-rise-19 {
+  animation: bubble-rise-1 16s ease-out infinite 17s;
+}
+
+/* Animation classes pour bulles très petites (20-29) */
+.animate-bubble-rise-20 {
+  animation: bubble-rise-2 25s ease-out infinite 16s;
+}
+
+.animate-bubble-rise-21 {
+  animation: bubble-rise-3 28s ease-out infinite 18s;
+}
+
+.animate-bubble-rise-22 {
+  animation: bubble-rise-4 24s ease-out infinite 20s;
+}
+
+.animate-bubble-rise-23 {
+  animation: bubble-rise-5 30s ease-out infinite 19s;
+}
+
+.animate-bubble-rise-24 {
+  animation: bubble-rise-6 26s ease-out infinite 21s;
+}
+
+.animate-bubble-rise-25 {
+  animation: bubble-rise-1 29s ease-out infinite 23s;
+}
+
+.animate-bubble-rise-26 {
+  animation: bubble-rise-2 27s ease-out infinite 25s;
+}
+
+.animate-bubble-rise-27 {
+  animation: bubble-rise-3 31s ease-out infinite 22s;
+}
+
+.animate-bubble-rise-28 {
+  animation: bubble-rise-4 23s ease-out infinite 24s;
+}
+
+.animate-bubble-rise-29 {
+  animation: bubble-rise-5 32s ease-out infinite 26s;
+}

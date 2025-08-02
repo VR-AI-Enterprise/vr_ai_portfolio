@@ -40,36 +40,24 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       {/* Overlay de base (gradient subtil) */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
       
-      {/* Titre toujours visible */}
-      <div className="absolute bottom-0 left-0 right-0 p-6">
-        <h3 className="text-2xl font-bold text-white mb-2 transform transition-all duration-500 group-hover:translate-y-0">
+      {/* Titre et bouton toujours visibles, maintenant alignés */}
+      <div className="absolute bottom-0 left-0 right-0 p-6 flex justify-between items-center gap-3">
+        <h3 className="text-2xl font-bold text-white">
           {project.title}
         </h3>
-      </div>
-
-      {/* Overlay hover avec description et tech stack */}
-      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-center p-6 z-20">
-       
-
-       
-       
-       
-
-        {/* Action button */}
+        
         {project.platformUrl && (
-          <div className="text-center mt-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-500">
-            <Link href={project.platformUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full font-medium hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105">
-              <span className="mr-2">Voir la plateforme</span>
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-          </div>
+          <Link href={project.platformUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full font-medium hover:from-blue-600 hover:to-purple-600 transition-all duration-300 transform hover:scale-105">
+            <span className="mr-2">Voir la plateforme</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
         )}
       </div>
 
       {/* Border avec glass effect */}
-      <div className="absolute inset-0 border border-white/20 dark:border-white/10 rounded-xl group-hover:border-blue-400/50 dark:group-hover:border-blue-500/30 transition-colors duration-500 z-10"></div>
+      <div className="absolute inset-0 border border-white/20 dark:border-white/10 rounded-xl group-hover:border-blue-400/50 dark:group-hover:border-blue-500/30 transition-colors duration-500 z-10 pointer-events-none"></div>
     </div>
   );
 }

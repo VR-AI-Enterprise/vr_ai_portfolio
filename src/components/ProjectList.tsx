@@ -104,11 +104,17 @@ export default function ProjectList() {
               return (
                 <div
                   key={project.id}
-                  className="absolute w-96 transition-all duration-500 group hover:z-[9999]"
+                  className="absolute w-96 transition-all duration-300 group"
                   style={{
                     left: position.left,
                     top: position.top,
-                    zIndex: 999,
+                    zIndex: baseZIndex,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.zIndex = '999';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.zIndex = baseZIndex.toString();
                   }}
                 >
                   <ProjectCard project={project} />

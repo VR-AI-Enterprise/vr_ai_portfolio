@@ -1,4 +1,5 @@
 import { Project } from "@/types/project";
+import Image from "next/image";
 
 interface ProjectCardProps {
   project: Project;
@@ -10,39 +11,30 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     height: 'h-96',
     width: 'w-[40rem]',
     scale: 'scale-100',
-     zIndex: 20,
+    zIndex: 20,
     rotation: 'rotate-0',
     offsetX: 'translate-x-0',
     offsetY: 'translate-y-0'
-  };
-
-  // Gradients colorés pour les 5 projets 
-  const getProjectGradient = (id: number) => {
-    const gradients = [
-      'bg-gradient-to-br from-blue-500 via-purple-600 to-cyan-500',      // VR Training - Bleu
-      'bg-gradient-to-br from-green-500 via-teal-600 to-blue-500',       // AI Vision - Vert
-      'bg-gradient-to-br from-purple-500 via-pink-600 to-red-500',       // Metaverse - Violet
-      'bg-gradient-to-br from-orange-500 via-red-600 to-pink-500',       // AI Assistant - Orange
-      'bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500',    // VR Gaming - Indigo
-    ];
-    return gradients[(id - 1) % gradients.length];
   };
 
   return (
     <div 
       className={`group relative ${cardProps.height} ${cardProps.width} ${cardProps.scale} ${cardProps.rotation} ${cardProps.offsetX} ${cardProps.offsetY} rounded-xl overflow-hidden cursor-pointer hover:-translate-y-6 hover:scale-110 hover:rotate-0 hover:translate-x-0 transition-all duration-700 hover:shadow-2xl`}
     >
-      {/* Background gradient dynamique */}
+      {/* Background avec image du projet */}
       <div className="absolute inset-0">
-        <div 
-          className={`w-full h-full group-hover:scale-110 transition-transform duration-700 ${getProjectGradient(project.id)}`}
+        <Image
+          src={project.imageUrl}
+          alt={project.title}
+          layout="fill"
+          objectFit="cover"
+          className="w-full h-full group-hover:scale-110 transition-transform duration-700"
         />
         {/* Pattern overlay pour texture */}
-        <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] bg-repeat"></div>
+        <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] bg-repeat"></div>
       </div>
 
-      {/* Glow effect around card dynamique - Plus intense au hover */}
-      <div className={`absolute -inset-4 ${getProjectGradient(project.id)} rounded-xl opacity-0 group-hover:opacity-50 transition-all duration-500 blur-xl group-hover:blur-2xl`}></div>
+      {/* Glow effect retiré car l'image est maintenant le focus principal */}
       
       {/* Overlay de base (gradient subtil) */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
@@ -71,9 +63,9 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </h3>
         
         {/* Description */}
-       {/*  <p className="text-gray-200 text-sm leading-relaxed mb-6 text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-300">
+        <p className="text-gray-200 text-sm leading-relaxed mb-6 text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-300">
           {project.description}
-        </p> */}
+        </p>
         
         {/* Tech Stack */}
         <div className="flex flex-wrap gap-2 justify-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-400">

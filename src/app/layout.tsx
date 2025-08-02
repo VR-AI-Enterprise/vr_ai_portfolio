@@ -1,5 +1,5 @@
 import AnimatedBackground from "@/components/AnimatedBackground";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -18,7 +18,11 @@ export const metadata: Metadata = {
   description: "Découvrez les projets innovants de Vr-Ai, spécialisée dans le développement de solutions en réalité virtuelle et intelligence artificielle.",
   keywords: ["VR", "AI", "Réalité Virtuelle", "Intelligence Artificielle", "Portfolio", "Innovation"],
   authors: [{ name: "Vr-Ai" }],
-  viewport: "width=device-width, initial-scale=1",
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({

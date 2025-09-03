@@ -15,7 +15,7 @@ export async function getAllProjects(): Promise<Project[]> {
       id: project.id,
       title: project.title,
       description: project.description || '',
-      imageUrl: project.imageUrl,
+      imageUrl: project.imageUrl || undefined,
       platformUrl: project.platformUrl || undefined,
       techStack: JSON.parse(project.techStack), // Convertir JSON string en array
       isFeatured: project.isFeatured,
@@ -40,7 +40,7 @@ export async function getFeaturedProjects(): Promise<Project[]> {
       id: project.id,
       title: project.title,
       description: project.description || '',
-      imageUrl: project.imageUrl,
+      imageUrl: project.imageUrl || undefined,
       platformUrl: project.platformUrl || undefined,
       techStack: JSON.parse(project.techStack), // Convertir JSON string en array
       isFeatured: project.isFeatured,
@@ -66,7 +66,7 @@ export async function getProjectById(id: string): Promise<Project | null> {
       id: project.id,
       title: project.title,
       description: project.description || '',
-      imageUrl: project.imageUrl,
+      imageUrl: project.imageUrl || undefined,
       platformUrl: project.platformUrl || undefined,
       techStack: JSON.parse(project.techStack), // Convertir JSON string en array
       isFeatured: project.isFeatured,

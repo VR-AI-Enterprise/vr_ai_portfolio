@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from 'react';
+import Image from 'next/image';
 
 interface ImageUploadProps {
   onImageUploaded: (imagePath: string) => void;
@@ -98,9 +99,11 @@ export default function ImageUpload({ onImageUploaded, currentImage, disabled }:
 
         {preview ? (
           <div className="space-y-4">
-            <img
+            <Image
               src={preview}
               alt="Aperçu"
+              width={300}
+              height={200}
               className="max-h-48 mx-auto rounded-lg shadow-md"
             />
             {!disabled && (
@@ -112,7 +115,7 @@ export default function ImageUpload({ onImageUploaded, currentImage, disabled }:
                 }}
                 className="text-red-600 hover:text-red-800 text-sm"
               >
-                Supprimer l'image
+                Supprimer l&apos;image
               </button>
             )}
           </div>
@@ -144,7 +147,7 @@ export default function ImageUpload({ onImageUploaded, currentImage, disabled }:
               )}
             </div>
             <p className="text-xs text-gray-500">
-              PNG, JPG, GIF jusqu'à 5MB
+              PNG, JPG, GIF jusqu&apos;à 5MB
             </p>
           </div>
         )}

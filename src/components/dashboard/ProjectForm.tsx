@@ -131,7 +131,7 @@ export default function ProjectForm({
 
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">
-              Ordre d'affichage
+              Ordre d&apos;affichage
             </label>
             <input
               type="number"
@@ -168,7 +168,7 @@ export default function ProjectForm({
           
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">
-              URL de l'image (legacy - optionnel)
+              URL de l&apos;image (legacy - optionnel)
             </label>
             <input
               type="text"

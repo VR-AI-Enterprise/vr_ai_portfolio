@@ -29,7 +29,7 @@ export default function ProjectTable({ projects, onEdit, onDelete, onRefresh }: 
       }
 
       onDelete(projectId);
-    } catch (error) {
+    } catch {
       alert('Erreur lors de la suppression du projet');
     } finally {
       setDeletingId(null);

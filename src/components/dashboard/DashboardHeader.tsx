@@ -1,5 +1,7 @@
 "use client";
 
+import Link from 'next/link';
+
 interface DashboardHeaderProps {
   onAddProject: () => void;
   projectCount: number;
@@ -20,12 +22,12 @@ export default function DashboardHeader({ onAddProject, projectCount }: Dashboar
           </div>
           
           <div className="flex items-center gap-4">
-            <a
+            <Link
               href="/"
               className="px-4 py-2 text-foreground/80 hover:text-foreground transition-colors"
             >
               ← Retour au portfolio
-            </a>
+            </Link>
             
             <button
               onClick={onAddProject}

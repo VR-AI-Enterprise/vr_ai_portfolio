@@ -12,7 +12,7 @@ export default function ProjectList() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch("/data/projects.json");
+        const response = await fetch("/api/projects");
         if (!response.ok) {
           throw new Error("Erreur lors du chargement des projets");
         }
@@ -59,21 +59,50 @@ export default function ProjectList() {
     );
   }
 
-  // Mapping des positions par ID de projet pour un positionnement robuste
-  const positionMap: { [key: number]: { left: string; top: string } } = {
-    1: { left: '0%', top: '2rem' },      // Look
-    2: { left: '40%', top: '20rem' },    // Institut Français Togo
-    3: { left: '-10%', top: '37rem' },   // Affund
-    4: { left: '60%', top: '39rem' },    // Growl
-    5: { left: '20%', top: '65rem' },    // LaTribu
-    6: { left: '70%', top: '5rem' },     // FG Influence
-    7: { left: '-5%', top: '75rem' },    // DressLike
-    8: { left: '55%', top: '80rem' },    // Klumer
-       9: { left: '30%', top: '100rem' },    // Affund
+  // Génération dynamique des positions basée sur le nombre de projets
+  const generateDynamicPositions = (projectCount: number) => {
+    const positions: { [key: number]: { left: string; top: string } } = {};
+    
+    // Configuration pour un layout créatif et équilibré
+    const horizontalZones = 4; // 4 zones horizontales (0%, 25%, 50%, 75%)
+    const verticalSpacing = 6; // Espacement vertical en rem
+    const startTop = 2; // Position de départ en rem
+    
+    for (let i = 0; i < projectCount; i++) {
+      const sortOrder = i + 1;
+      
+      // Génération pseudo-aléatoire basée sur l'index pour la cohérence
+      const seed = sortOrder * 7 + 13; // Nombre premier pour la distribution
+      const horizontalZone = seed % horizontalZones;
+      const verticalOffset = Math.floor(seed / horizontalZones) * verticalSpacing;
+      
+      // Positions horizontales variées
+      const horizontalPositions = ['0%', '25%', '50%', '75%', '10%', '35%', '60%', '85%'];
+      const left = horizontalPositions[horizontalZone % horizontalPositions.length];
+      
+      // Position verticale avec espacement progressif
+      const top = `${startTop + verticalOffset + (i * 2)}rem`;
+      
+      positions[sortOrder] = { left, top };
+    }
+    
+    return positions;
+  };
+
+  const positionMap = generateDynamicPositions(projects.length);
+
+  // Calcul dynamique de la hauteur de section basée sur le nombre de projets
+  const calculateSectionHeight = (projectCount: number) => {
+    const baseHeight = 20; // Hauteur de base en rem
+    const projectHeight = 25; // Hauteur par projet en rem
+    return `${baseHeight + (projectCount * projectHeight)}rem`;
   };
 
   return (
-    <section className="w-full py-12 px-4 sm:px-6 lg:px-8">
+    <section 
+      className="w-full py-12 px-4 sm:px-6 lg:px-8"
+      style={{ minHeight: calculateSectionHeight(projects.length) }}
+    >
       <div className="max-w-7xl mx-auto">
         {/* Container avec glass morphism pour la section titre */}
         <div className="text-center mb-12 relative">
@@ -100,7 +129,7 @@ export default function ProjectList() {
           {/* Layout superposé pour desktop - Positions basées sur l'ID */}
           <div className="hidden lg:block">
             {projects.map((project, index) => {
-              const position = positionMap[project.id] || { left: '50%', top: '0rem' };
+              const position = positionMap[project.sortOrder || index + 1] || { left: '50%', top: '0rem' };
               const baseZIndex = 10 + index;
               
               return (

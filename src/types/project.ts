@@ -1,10 +1,15 @@
 export interface Project {
-  id: number;
+  id: string; // Changé de number à string pour cohérence avec Prisma
   title: string;
   description: string;
-  imageUrl: string;
+  imagePath?: string; // Chemin vers l'image dans le stockage
+  imageUrl?: string; // URL de l'image (legacy)
   techStack: string[];
-  platformUrl?: string; // Ajout du lien optionnel vers la plateforme
+  platformUrl?: string;
+  isFeatured?: boolean;
+  sortOrder?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export type ProjectsData = Project[];

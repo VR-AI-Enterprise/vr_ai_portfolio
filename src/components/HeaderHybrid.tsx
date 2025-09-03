@@ -61,13 +61,22 @@ export default function HeaderHybrid() {
             </div>
           </div>
 
-          {/* Call to action minimaliste */}
+          {/* Call to action et navigation */}
           <div className={`mt-16 transition-all duration-1000 delay-700 ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}>
-            <div className="inline-flex items-center space-x-2 text-slate-500 dark:text-slate-400 group cursor-pointer">
-              <span className="text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Explorez nos réalisations</span>
-              <svg className="w-4 h-4 animate-bounce group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
+            <div className="flex items-center justify-center gap-8">
+              <div className="inline-flex items-center space-x-2 text-slate-500 dark:text-slate-400 group cursor-pointer">
+                <span className="text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Explorez nos réalisations</span>
+                <svg className="w-4 h-4 animate-bounce group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </div>
+              
+              {/* <a 
+                href="/dashboard" 
+                className="px-4 py-2 text-sm bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-white/20 hover:border-white/30 transition-all duration-300"
+              >
+                🛠️ Dashboard
+              </a> */}
             </div>
           </div>
         </div>

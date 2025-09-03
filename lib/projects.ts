@@ -17,7 +17,7 @@ export async function getAllProjects(): Promise<Project[]> {
       description: project.description || '',
       imageUrl: project.imageUrl || undefined,
       platformUrl: project.platformUrl || undefined,
-      techStack: JSON.parse(project.techStack), // Convertir JSON string en array
+      techStack: project.techStack, // Array natif pour PostgreSQL
       isFeatured: project.isFeatured,
       sortOrder: project.sortOrder,
       createdAt: project.createdAt,
@@ -42,7 +42,7 @@ export async function getFeaturedProjects(): Promise<Project[]> {
       description: project.description || '',
       imageUrl: project.imageUrl || undefined,
       platformUrl: project.platformUrl || undefined,
-      techStack: JSON.parse(project.techStack), // Convertir JSON string en array
+      techStack: project.techStack, // Array natif pour PostgreSQL
       isFeatured: project.isFeatured,
       sortOrder: project.sortOrder,
       createdAt: project.createdAt,
@@ -68,7 +68,7 @@ export async function getProjectById(id: string): Promise<Project | null> {
       description: project.description || '',
       imageUrl: project.imageUrl || undefined,
       platformUrl: project.platformUrl || undefined,
-      techStack: JSON.parse(project.techStack), // Convertir JSON string en array
+      techStack: project.techStack, // Array natif pour PostgreSQL
       isFeatured: project.isFeatured,
       sortOrder: project.sortOrder,
       createdAt: project.createdAt,

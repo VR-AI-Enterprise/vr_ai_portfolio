@@ -19,7 +19,7 @@ async function migrateProjects() {
           description: project.description,
           imageUrl: project.imageUrl,
           platformUrl: project.platformUrl,
-          techStack: JSON.stringify(project.techStack), // Convertir array en JSON string
+          techStack: project.techStack, // Array natif pour PostgreSQL
           isFeatured: project.id === 1 || project.id === 2, // Marquer les 2 premiers comme vedettes
           sortOrder: project.id
         }

@@ -72,7 +72,7 @@ export async function PUT(
       imagePath: updatedProject.imagePath || undefined,
       imageUrl: updatedProject.imageUrl || undefined,
       platformUrl: updatedProject.platformUrl || undefined,
-      techStack: JSON.parse(updatedProject.techStack),
+      techStack: updatedProject.techStack,
       isFeatured: updatedProject.isFeatured,
       sortOrder: updatedProject.sortOrder,
       createdAt: updatedProject.createdAt,

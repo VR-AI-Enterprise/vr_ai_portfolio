@@ -4,14 +4,25 @@ import { Project } from "@/types/project";
 import { useEffect, useState } from "react";
 import ProjectCard from "./ProjectCard";
 
-export default function ProjectList() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+interface ProjectListProps {
+  initialProjects?: Project[];
+  initialError?: string | null;
+}
+
+export default function ProjectList({ initialProjects = [], initialError = null }: ProjectListProps) {
+  const [projects, setProjects] = useState<Project[]>(initialProjects);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(initialError);
 
   useEffect(() => {
+    // Si on a déjà des projets initiaux, pas besoin de les recharger
+    if (initialProjects.length > 0) {
+      return;
+    }
+
     const fetchProjects = async () => {
       try {
+        setLoading(true);
         const response = await fetch("/api/projects");
         if (!response.ok) {
           throw new Error("Erreur lors du chargement des projets");
@@ -26,7 +37,7 @@ export default function ProjectList() {
     };
 
     fetchProjects();
-  }, []);
+  }, [initialProjects.length]);
 
   if (loading) {
     return (

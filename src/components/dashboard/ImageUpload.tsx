@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef, useState } from 'react';
 import Image from 'next/image';
+import { useRef, useState } from 'react';
 
 interface ImageUploadProps {
-  onImageUploaded: (imagePath: string) => void;
+  onImageUploaded: (imageUrl: string) => void;
   currentImage?: string;
   disabled?: boolean;
 }
@@ -56,7 +56,7 @@ export default function ImageUpload({ onImageUploaded, currentImage, disabled }:
       }
 
       const result = await response.json();
-      onImageUploaded(result.imagePath);
+      onImageUploaded(result.imageUrl);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erreur lors de l\'upload');
       setPreview(null);

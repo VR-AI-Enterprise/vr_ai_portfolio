@@ -31,7 +31,6 @@ const convertFirestoreToProject = (doc: { id: string; data: () => Record<string,
     id: doc.id,
     title: (data.title as string) || '',
     description: (data.description as string) || '',
-    imagePath: (data.imagePath as string) || undefined,
     imageUrl: (data.imageUrl as string) || undefined,
     platformUrl: (data.platformUrl as string) || undefined,
     techStack: (data.techStack as string[]) || [],
@@ -48,9 +47,7 @@ export async function getAllProjects(): Promise<Project[]> {
     const projectsRef = collection(db, COLLECTION_NAME);
     const q = query(
       projectsRef,
-      orderBy('isFeatured', 'desc'),
-      orderBy('sortOrder', 'asc'),
-      orderBy('createdAt', 'desc')
+      orderBy('sortOrder', 'asc')
     );
     
     const querySnapshot = await getDocs(q);
@@ -114,8 +111,13 @@ export async function createProject(projectData: Omit<Project, 'id' | 'createdAt
     const projectsRef = collection(db, COLLECTION_NAME);
     const now = Timestamp.now();
     
+    // Filtrer les valeurs undefined
+    const cleanProjectData = Object.fromEntries(
+      Object.entries(projectData).filter(([_, value]) => value !== undefined)
+    );
+    
     const docRef = await addDoc(projectsRef, {
-      ...projectData,
+      ...cleanProjectData,
       createdAt: now,
       updatedAt: now
     });

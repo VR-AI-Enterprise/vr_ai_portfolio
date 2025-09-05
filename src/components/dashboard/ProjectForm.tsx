@@ -20,7 +20,6 @@ export default function ProjectForm({
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    imagePath: '',
     imageUrl: '',
     platformUrl: '',
     techStack: '',
@@ -37,7 +36,6 @@ export default function ProjectForm({
       setFormData({
         title: project.title,
         description: project.description,
-        imagePath: project.imagePath || '',
         imageUrl: project.imageUrl || '',
         platformUrl: project.platformUrl || '',
         techStack: project.techStack.join(', '),
@@ -161,8 +159,8 @@ export default function ProjectForm({
 
         <div className="grid grid-cols-1 gap-6">
           <ImageUpload
-            onImageUploaded={(imagePath) => setFormData(prev => ({ ...prev, imagePath }))}
-            currentImage={formData.imagePath || formData.imageUrl}
+            onImageUploaded={(imageUrl) => setFormData(prev => ({ ...prev, imageUrl }))}
+            currentImage={formData.imageUrl}
             disabled={loading}
           />
           

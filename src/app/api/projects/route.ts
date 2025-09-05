@@ -18,12 +18,11 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { title, description, imagePath, imageUrl, platformUrl, techStack, isFeatured, sortOrder } = body
+    const { title, description, imageUrl, platformUrl, techStack, isFeatured, sortOrder } = body
 
     const newProject = await createProject({
       title,
       description,
-      imagePath,
       imageUrl,
       platformUrl,
       techStack: techStack || [],

@@ -1,7 +1,5 @@
-import { existsSync } from 'fs';
-import { mkdir, writeFile } from 'fs/promises';
+import { uploadImage } from '@/lib/firebase-storage';
 import { NextRequest, NextResponse } from 'next/server';
-import { join } from 'path';
 
 export async function POST(request: NextRequest) {
   try {
@@ -22,33 +20,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Fichier trop volumineux (max 5MB)' }, { status: 400 });
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
-    // Créer un nom de fichier unique
-    const timestamp = Date.now();
-    const extension = file.name.split('.').pop();
-    const filename = `project_${timestamp}.${extension}`;
-    
-    // Chemin de destination
-    const uploadsDir = join(process.cwd(), 'public', 'uploads');
-    const filepath = join(uploadsDir, filename);
-
-    // Créer le dossier uploads s'il n'existe pas
-    if (!existsSync(uploadsDir)) {
-      await mkdir(uploadsDir, { recursive: true });
-    }
-
-    // Sauvegarder le fichier
-    await writeFile(filepath, buffer);
-
-    // Retourner le chemin relatif
-    const imagePath = `/uploads/${filename}`;
+    // Upload vers Firebase Storage
+    const uploadResult = await uploadImage(file, 'projects');
 
     return NextResponse.json({ 
       success: true, 
-      imagePath,
-      filename 
+      imageUrl: uploadResult.url,
+      imagePath: uploadResult.path,
+      filename: file.name
     });
 
   } catch (error) {

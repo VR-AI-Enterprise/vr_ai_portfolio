@@ -35,12 +35,11 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { title, description, imagePath, imageUrl, platformUrl, techStack, isFeatured, sortOrder } = body;
+    const { title, description, imageUrl, platformUrl, techStack, isFeatured, sortOrder } = body;
 
     const updatedProject = await updateProject(id, {
       title,
       description,
-      imagePath,
       imageUrl,
       platformUrl,
       techStack: techStack || [],

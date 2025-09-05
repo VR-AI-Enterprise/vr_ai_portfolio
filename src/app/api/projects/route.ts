@@ -1,5 +1,4 @@
-import { prisma } from '@/lib/prisma'
-import { getAllProjects } from '@/lib/projects'
+import { createProject, getAllProjects } from '@/lib/projects-firebase'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET() {
@@ -21,32 +20,18 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { title, description, imagePath, imageUrl, platformUrl, techStack, isFeatured, sortOrder } = body
 
-    const newProject = await prisma.project.create({
-      data: {
-        title,
-        description,
-        imagePath,
-        imageUrl,
-        platformUrl,
-        techStack: techStack,
-        isFeatured: isFeatured || false,
-        sortOrder: parseInt(sortOrder) || 1
-      }
+    const newProject = await createProject({
+      title,
+      description,
+      imagePath,
+      imageUrl,
+      platformUrl,
+      techStack: techStack || [],
+      isFeatured: isFeatured || false,
+      sortOrder: parseInt(sortOrder) || 1
     })
 
-    return NextResponse.json({
-      id: newProject.id,
-      title: newProject.title,
-      description: newProject.description || '',
-      imagePath: newProject.imagePath || undefined,
-      imageUrl: newProject.imageUrl || undefined,
-      platformUrl: newProject.platformUrl || undefined,
-      techStack: newProject.techStack,
-      isFeatured: newProject.isFeatured,
-      sortOrder: newProject.sortOrder,
-      createdAt: newProject.createdAt,
-      updatedAt: newProject.updatedAt
-    }, { status: 201 })
+    return NextResponse.json(newProject, { status: 201 })
   } catch (error) {
     console.error('Erreur POST projet:', error)
     return NextResponse.json(

@@ -2,7 +2,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative w-full py-12 px-4 sm:px-6 lg:px-8 mt-20">
+    <footer className="relative w-full py-12 px-4 sm:px-6 lg:px-8 mt-32">
       {/* Background avec glass morphism */}
       <div className="absolute inset-0 bg-background/50 dark:bg-background/30 backdrop-blur-lg border-t border-foreground/20 dark:border-foreground/10"></div>
       

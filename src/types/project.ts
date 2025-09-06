@@ -6,6 +6,7 @@ export interface Project {
   techStack: string[];
   platformUrl?: string;
   isFeatured?: boolean;
+  projectType?: string;
   sortOrder?: number;
   createdAt?: Date;
   updatedAt?: Date;

@@ -70,50 +70,9 @@ export default function ProjectList({ initialProjects = [], initialError = null 
     );
   }
 
-  // Génération dynamique des positions basée sur le nombre de projets
-  const generateDynamicPositions = (projectCount: number) => {
-    const positions: { [key: number]: { left: string; top: string } } = {};
-    
-    // Configuration pour un layout créatif et équilibré
-    const horizontalZones = 4; // 4 zones horizontales (0%, 25%, 50%, 75%)
-    const verticalSpacing = 6; // Espacement vertical en rem
-    const startTop = 2; // Position de départ en rem
-    
-    for (let i = 0; i < projectCount; i++) {
-      const sortOrder = i + 1;
-      
-      // Génération pseudo-aléatoire basée sur l'index pour la cohérence
-      const seed = sortOrder * 7 + 13; // Nombre premier pour la distribution
-      const horizontalZone = seed % horizontalZones;
-      const verticalOffset = Math.floor(seed / horizontalZones) * verticalSpacing;
-      
-      // Positions horizontales variées
-      const horizontalPositions = ['0%', '25%', '50%', '75%', '10%', '35%', '60%', '85%'];
-      const left = horizontalPositions[horizontalZone % horizontalPositions.length];
-      
-      // Position verticale avec espacement progressif
-      const top = `${startTop + verticalOffset + (i * 2)}rem`;
-      
-      positions[sortOrder] = { left, top };
-    }
-    
-    return positions;
-  };
-
-  const positionMap = generateDynamicPositions(projects.length);
-
-  // Calcul dynamique de la hauteur de section basée sur le nombre de projets
-  const calculateSectionHeight = (projectCount: number) => {
-    const baseHeight = 20; // Hauteur de base en rem
-    const projectHeight = 25; // Hauteur par projet en rem
-    return `${baseHeight + (projectCount * projectHeight)}rem`;
-  };
 
   return (
-    <section 
-      className="w-full py-12 px-4 sm:px-6 lg:px-8"
-      style={{ minHeight: calculateSectionHeight(projects.length) }}
-    >
+    <section className="w-full py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Container avec glass morphism pour la section titre */}
         <div className="text-center mb-12 relative">
@@ -128,41 +87,19 @@ export default function ProjectList({ initialProjects = [], initialError = null 
           </div>
         </div>
         
-        {/* Layout masonry pour 8 projets */}
-        <div className="relative min-h-[1000px] lg:min-h-[2000px] py-8">
-          {/* Grille mobile pour 8 projets */}
-          <div className="lg:hidden grid grid-cols-1 md:grid-cols-2 gap-8">
-            {projects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+        {/* Layout Grid Simple pour tous les écrans */}
+        <div className="py-8">
+          {/* Grille responsive pour tous les écrans */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {projects.map((project, index) => (
+              <div
+                key={project.id}
+                className="animate-fade-in-up"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <ProjectCard project={project} />
+              </div>
             ))}
-          </div>
-          
-          {/* Layout superposé pour desktop - Positions basées sur l'ID */}
-          <div className="hidden lg:block">
-            {projects.map((project, index) => {
-              const position = positionMap[project.sortOrder || index + 1] || { left: '50%', top: '0rem' };
-              const baseZIndex = 10 + index;
-              
-              return (
-                <div
-                  key={project.id}
-                  className="absolute w-96 transition-all duration-300 group"
-                  style={{
-                    left: position.left,
-                    top: position.top,
-                    zIndex: baseZIndex,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.zIndex = '999';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.zIndex = baseZIndex.toString();
-                  }}
-                >
-                  <ProjectCard project={project} />
-                </div>
-              );
-            })}
           </div>
         </div>
       </div>

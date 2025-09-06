@@ -22,14 +22,36 @@ export default function ProjectForm({
     description: '',
     imageUrl: '',
     platformUrl: '',
-    techStack: '',
+    techStack: [] as string[],
+    projectType: 'web' as 'web' | 'mobile',
     isFeatured: false,
     sortOrder: 1
   });
+  const [projectsCount, setProjectsCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const isEditing = !!project;
+
+  // Charger le nombre de projets pour définir l'ordre par défaut
+  useEffect(() => {
+    const fetchProjectsCount = async () => {
+      try {
+        const response = await fetch('/api/projects');
+        const projects = await response.json();
+        setProjectsCount(projects.length);
+        if (!isEditing) {
+          setFormData(prev => ({
+            ...prev,
+            sortOrder: projects.length + 1
+          }));
+        }
+      } catch (error) {
+        console.error('Erreur lors du chargement des projets:', error);
+      }
+    };
+    fetchProjectsCount();
+  }, [isEditing]);
 
   useEffect(() => {
     if (project) {
@@ -38,7 +60,8 @@ export default function ProjectForm({
         description: project.description,
         imageUrl: project.imageUrl || '',
         platformUrl: project.platformUrl || '',
-        techStack: project.techStack.join(', '),
+        techStack: project.techStack,
+        projectType: project.projectType || 'web',
         isFeatured: project.isFeatured || false,
         sortOrder: project.sortOrder || 1
       });
@@ -51,14 +74,9 @@ export default function ProjectForm({
     setError(null);
 
     try {
-      const techStackArray = formData.techStack
-        .split(',')
-        .map(tech => tech.trim())
-        .filter(tech => tech.length > 0);
-
       const projectData = {
         ...formData,
-        techStack: techStackArray
+        techStack: formData.techStack
       };
 
       const url = isEditing ? `/api/projects/${project.id}` : '/api/projects';
@@ -90,11 +108,28 @@ export default function ProjectForm({
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
+    }));
+  };
+
+  const handleTechStackChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedTech = e.target.value;
+    if (selectedTech && !formData.techStack.includes(selectedTech)) {
+      setFormData(prev => ({
+        ...prev,
+        techStack: [...prev.techStack, selectedTech]
+      }));
+    }
+  };
+
+  const removeTechStack = (techToRemove: string) => {
+    setFormData(prev => ({
+      ...prev,
+      techStack: prev.techStack.filter(tech => tech !== techToRemove)
     }));
   };
 
@@ -138,7 +173,11 @@ export default function ProjectForm({
               onChange={handleChange}
               min="1"
               className="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-lg text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder={`${projectsCount + 1} (par défaut)`}
             />
+            <p className="text-xs text-foreground/60 mt-1">
+              Par défaut: {projectsCount + 1} (nombre de projets + 1)
+            </p>
           </div>
         </div>
 
@@ -195,16 +234,106 @@ export default function ProjectForm({
 
         <div>
           <label className="block text-sm font-medium text-foreground mb-2">
-            Technologies (séparées par des virgules)
+            Technologies
           </label>
-          <input
-            type="text"
+          <select
             name="techStack"
-            value={formData.techStack}
-            onChange={handleChange}
-            className="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-lg text-foreground placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="React, TypeScript, Next.js"
-          />
+            value=""
+            onChange={handleTechStackChange}
+            className="w-full px-3 py-2 bg-white/20 border border-white/30 rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Sélectionner une technologie</option>
+            <option value="React">React</option>
+            <option value="Next.js">Next.js</option>
+            <option value="TypeScript">TypeScript</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Node.js">Node.js</option>
+            <option value="Express">Express</option>
+            <option value="MongoDB">MongoDB</option>
+            <option value="PostgreSQL">PostgreSQL</option>
+            <option value="Firebase">Firebase</option>
+            <option value="Tailwind CSS">Tailwind CSS</option>
+            <option value="CSS">CSS</option>
+            <option value="HTML">HTML</option>
+            <option value="Python">Python</option>
+            <option value="Django">Django</option>
+            <option value="Flask">Flask</option>
+            <option value="Vue.js">Vue.js</option>
+            <option value="Angular">Angular</option>
+            <option value="Svelte">Svelte</option>
+            <option value="React Native">React Native</option>
+            <option value="Flutter">Flutter</option>
+            <option value="Swift">Swift</option>
+            <option value="Kotlin">Kotlin</option>
+            <option value="Java">Java</option>
+            <option value="C#">C#</option>
+            <option value="PHP">PHP</option>
+            <option value="Laravel">Laravel</option>
+            <option value="Symfony">Symfony</option>
+            <option value="Ruby">Ruby</option>
+            <option value="Rails">Rails</option>
+            <option value="Go">Go</option>
+            <option value="Rust">Rust</option>
+            <option value="Docker">Docker</option>
+            <option value="Kubernetes">Kubernetes</option>
+            <option value="AWS">AWS</option>
+            <option value="Vercel">Vercel</option>
+            <option value="Netlify">Netlify</option>
+            <option value="Git">Git</option>
+            <option value="GitHub">GitHub</option>
+            <option value="GitLab">GitLab</option>
+          </select>
+          
+          {/* Affichage des technologies sélectionnées */}
+          {formData.techStack.length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-2">
+              {formData.techStack.map((tech, index) => (
+                <span
+                  key={index}
+                  className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-500/20 text-blue-200 border border-blue-400/30"
+                >
+                  {tech}
+                  <button
+                    type="button"
+                    onClick={() => removeTechStack(tech)}
+                    className="ml-2 text-blue-300 hover:text-blue-100"
+                  >
+                    ×
+                  </button>
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground mb-2">
+            Type de projet *
+          </label>
+          <div className="flex gap-6">
+            <label className="flex items-center">
+              <input
+                type="radio"
+                name="projectType"
+                value="web"
+                checked={formData.projectType === 'web'}
+                onChange={handleChange}
+                className="w-4 h-4 text-blue-600 bg-white/20 border-white/30 focus:ring-blue-500"
+              />
+              <span className="ml-2 text-foreground">🌐 Web</span>
+            </label>
+            <label className="flex items-center">
+              <input
+                type="radio"
+                name="projectType"
+                value="mobile"
+                checked={formData.projectType === 'mobile'}
+                onChange={handleChange}
+                className="w-4 h-4 text-blue-600 bg-white/20 border-white/30 focus:ring-blue-500"
+              />
+              <span className="ml-2 text-foreground">📱 Mobile</span>
+            </label>
+          </div>
         </div>
 
         <div className="flex items-center">

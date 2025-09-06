@@ -71,6 +71,9 @@ export default function ProjectTable({ projects, onEdit, onDelete, onRefresh }: 
                 Projet
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-foreground/80 uppercase tracking-wider">
+                Type
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-foreground/80 uppercase tracking-wider">
                 Technologies
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-foreground/80 uppercase tracking-wider">
@@ -89,8 +92,18 @@ export default function ProjectTable({ projects, onEdit, onDelete, onRefresh }: 
               <tr key={project.id} className="hover:bg-white/5 transition-colors">
                 <td className="px-6 py-4">
                   <div className="flex items-center">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white font-bold text-lg mr-4">
-                      {project.title.charAt(0).toUpperCase()}
+                    <div className="w-12 h-12 rounded-lg overflow-hidden mr-4 flex-shrink-0">
+                      {project.imageUrl ? (
+                        <img
+                          src={project.imageUrl}
+                          alt={project.title}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
+                          {project.title.charAt(0).toUpperCase()}
+                        </div>
+                      )}
                     </div>
                     <div>
                       <div className="text-sm font-medium text-foreground">
@@ -101,6 +114,16 @@ export default function ProjectTable({ projects, onEdit, onDelete, onRefresh }: 
                       </div>
                     </div>
                   </div>
+                </td>
+                <td className="px-6 py-4">
+                  <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold
+                    ${project.projectType === 'web' 
+                      ? 'bg-blue-500/20 text-blue-200 border border-blue-400/30' 
+                      : 'bg-green-500/20 text-green-200 border border-green-400/30'
+                    }`}
+                  >
+                    {project.projectType === 'web' ? '🌐 Web' : '📱 Mobile'}
+                  </span>
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex flex-wrap gap-1">

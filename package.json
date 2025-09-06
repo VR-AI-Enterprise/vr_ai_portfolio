@@ -7,19 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate",
-    "db:push": "prisma db push",
-    "db:migrate": "prisma migrate deploy",
     "build:prod": "node scripts/build-production.js"
   },
   "dependencies": {
-    "@prisma/client": "^6.15.0",
-    "@vercel/postgres": "^0.10.0",
     "dotenv": "^17.2.2",
     "firebase": "^12.2.1",
     "firebase-admin": "^13.5.0",
     "next": "15.4.5",
-    "prisma": "^6.15.0",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },

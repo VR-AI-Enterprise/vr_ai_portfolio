@@ -1,11 +1,11 @@
-# 🚀 Vr-Ai Portfolio - Portfolio Dynamique avec Base de Données
+# 🚀 Vr-Ai Portfolio - Portfolio Dynamique avec Firebase
 
-Un portfolio moderne et dynamique pour Vr-Ai, développé avec Next.js 15, TypeScript, Tailwind CSS et Prisma. Ce projet présente des projets VR, IA et AR avec une interface immersive et des données stockées dans une base de données.
+Un portfolio moderne et dynamique pour Vr-Ai, développé avec Next.js 15, TypeScript, Tailwind CSS et Firebase. Ce projet présente des projets VR, IA et AR avec une interface immersive et des données stockées dans Firebase Firestore.
 
 ## ✨ Fonctionnalités
 
 - **🎨 Interface Immersive** : Design futuriste avec animations et effets visuels
-- **🗄️ Base de Données Dynamique** : Gestion des projets via Prisma + SQLite
+- **🗄️ Base de Données Dynamique** : Gestion des projets via Firebase Firestore
 - **📱 Responsive Design** : Optimisé pour tous les appareils
 - **🎯 Cartes de Projets Interactives** : Layout créatif avec superposition et effets hover
 - **🌐 API REST** : Endpoints pour la gestion des données
@@ -21,14 +21,15 @@ Un portfolio moderne et dynamique pour Vr-Ai, développé avec Next.js 15, TypeS
 - **React 19** - Bibliothèque UI
 
 ### Backend & Base de Données
-- **Prisma** - ORM moderne pour TypeScript
-- **SQLite** - Base de données locale (développement)
+- **Firebase Firestore** - Base de données NoSQL
+- **Firebase Storage** - Stockage des images
+- **Firebase Admin SDK** - Gestion côté serveur
 - **API Routes** - Endpoints REST intégrés
 
 ### Outils de Développement
 - **Turbopack** - Bundler ultra-rapide
 - **ESLint** - Linter JavaScript/TypeScript
-- **Prisma Studio** - Interface graphique pour la DB
+- **Firebase Console** - Interface graphique pour la DB
 
 ## 📁 Structure du Projet
 

@@ -1,216 +1,212 @@
-# 🚀 Guide de Déploiement en Production
+# 🚀 Guide de Déploiement - Vr-Ai Portfolio
+
+Ce guide explique comment déployer et maintenir l'application Vr-Ai Portfolio en production.
 
 ## 📋 Prérequis
 
-1. **Compte Vercel** : [vercel.com](https://vercel.com)
-2. **GitHub Repository** : Votre code doit être sur GitHub
-3. **Vercel CLI** (optionnel) : `npm i -g vercel`
+- Node.js 18+ installé
+- Vercel CLI installé : `npm i -g vercel`
+- Compte Vercel configuré
+- Variables d'environnement Firebase configurées
 
-## 🗄️ Configuration de la Base de Données
+## 🛠️ Scripts Disponibles
 
-### 1. Créer une Base de Données Vercel Postgres
+### 1. Script Principal de Déploiement
+```bash
+./deploy-prod.sh
+```
+**Fonctionnalités :**
+- ✅ Nettoyage des fichiers temporaires
+- ✅ Installation des dépendances
+- ✅ Vérification TypeScript et ESLint
+- ✅ Build de production
+- ✅ Déploiement sur Vercel
+- ✅ Tests automatiques post-déploiement
+- ✅ Messages colorés et informatifs
 
-1. Allez sur [Vercel Dashboard](https://vercel.com/dashboard)
-2. Cliquez sur **"Storage"** → **"Create Database"**
-3. Sélectionnez **"Postgres"**
-4. Choisissez un nom : `vr-ai-portfolio-db`
-5. Sélectionnez la région : `Europe (Paris)`
-6. Cliquez sur **"Create"**
+### 2. Script de Vérification
+```bash
+./verify-prod.sh
+```
+**Fonctionnalités :**
+- ✅ Test de la page d'accueil
+- ✅ Test de l'API projets
+- ✅ Test de responsivité
+- ✅ Vérification des cartes (h-80)
+- ✅ Test des badges de type
 
-### 2. Récupérer les Variables d'Environnement
+### 3. Script de Rollback
+```bash
+./rollback-prod.sh
+```
+**Fonctionnalités :**
+- ✅ Liste des déploiements récents
+- ✅ Restauration vers une version précédente
+- ✅ Vérification optionnelle du rollback
 
-Après création, Vercel vous fournira :
-- `POSTGRES_URL`
-- `POSTGRES_PRISMA_URL`
-- `POSTGRES_URL_NON_POOLING`
-- `POSTGRES_USER`
-- `POSTGRES_HOST`
-- `POSTGRES_PASSWORD`
-- `POSTGRES_DATABASE`
+### 4. Script de Maintenance (Menu Interactif)
+```bash
+./maintenance.sh
+```
+**Options disponibles :**
+1. 🚀 Déployer en production
+2. 🧪 Vérifier la production
+3. 🔄 Rollback
+4. 📊 Statut des déploiements
+5. 🔍 Logs de production
+6. 🧹 Nettoyage local
+7. 🔧 Vérification locale
+8. 📋 Informations projet
+9. ❌ Quitter
 
-## 🚀 Déploiement sur Vercel
+## 🚀 Déploiement Rapide
 
-### Option 1 : Déploiement via GitHub (Recommandé)
+### Option 1 : Script Automatique
+```bash
+./deploy-prod.sh
+```
 
-1. **Connecter GitHub** :
-   - Allez sur [Vercel Dashboard](https://vercel.com/dashboard)
-   - Cliquez sur **"New Project"**
-   - Importez votre repository GitHub
+### Option 2 : Menu Interactif
+```bash
+./maintenance.sh
+# Choisir l'option 1
+```
 
-2. **Configuration du Projet** :
-   - **Framework Preset** : Next.js
-   - **Root Directory** : `./`
-   - **Build Command** : `npm run build`
-   - **Output Directory** : `.next`
-   - **Install Command** : `npm install`
+### Option 3 : Vercel Direct
+```bash
+vercel --prod
+```
 
-3. **Variables d'Environnement** :
-   ```
-   DATABASE_URL = POSTGRES_PRISMA_URL (de Vercel)
-   NEXTAUTH_SECRET = votre-clé-secrète
-   NEXTAUTH_URL = https://votre-domaine.vercel.app
-   ```
+## 🔧 Configuration Requise
 
-4. **Déployer** :
-   - Cliquez sur **"Deploy"**
-   - Attendez la fin du build
-
-### Option 2 : Déploiement via CLI
+### Variables d'Environnement Vercel
+Assurez-vous que ces variables sont configurées dans Vercel :
 
 ```bash
-# 1. Installer Vercel CLI
-npm i -g vercel
+# Firebase Admin SDK
+FIREBASE_PROJECT_ID=vrai-9a598
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n..."
+FIREBASE_CLIENT_EMAIL=firebase-adminsdk-...
+FIREBASE_STORAGE_BUCKET=vrai-9a598.firebasestorage.app
 
-# 2. Se connecter
-vercel login
-
-# 3. Déployer
-vercel
-
-# 4. Configurer les variables d'environnement
-vercel env add DATABASE_URL
-vercel env add NEXTAUTH_SECRET
-vercel env add NEXTAUTH_URL
+# Firebase Client SDK
+NEXT_PUBLIC_FIREBASE_API_KEY=...
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=vrai-9a598.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=vrai-9a598
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=vrai-9a598.firebasestorage.app
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=...
+NEXT_PUBLIC_FIREBASE_APP_ID=...
 ```
 
-## 🗃️ Migration de la Base de Données
+### Fichier .env.production
+Créez un fichier `.env.production` avec vos variables Firebase pour les tests locaux.
 
-### 1. Générer le Client Prisma
+## 📊 Monitoring et Maintenance
+
+### Vérifier le Statut
 ```bash
-npx prisma generate
+vercel ls
+vercel env ls production
 ```
 
-### 2. Pousser le Schéma vers la Production
+### Voir les Logs
 ```bash
-npx prisma db push
+vercel logs
+vercel logs --limit 100
 ```
 
-### 3. Migrer les Données (Optionnel)
+### Rollback en Cas de Problème
 ```bash
-# Si vous avez des données à migrer
-npx prisma migrate deploy
+./rollback-prod.sh
+# Ou
+vercel promote <deployment-url>
 ```
 
-## 📁 Structure des Fichiers de Production
+## 🧪 Tests Post-Déploiement
 
-```
-vr-ai-portfolio/
-├── .next/                 # Build Next.js
-├── prisma/
-│   ├── schema.prisma      # Schéma PostgreSQL
-│   └── migrations/        # Migrations (si utilisées)
-├── src/
-│   ├── app/
-│   │   ├── api/          # API Routes
-│   │   └── dashboard/    # Dashboard
-│   └── components/       # Composants React
-├── public/
-│   └── uploads/          # Images uploadées
-├── vercel.json           # Configuration Vercel
-└── package.json          # Scripts de production
-```
+### Tests Automatiques
+Le script `deploy-prod.sh` effectue automatiquement :
+- Test de l'API `/api/projects`
+- Vérification du nombre de projets
+- Test de responsivité
+- Vérification des cartes (hauteur h-80)
 
-## 🔧 Configuration Post-Déploiement
-
-### 1. Vérifier le Déploiement
-- Visitez votre URL Vercel
-- Testez le portfolio : `https://votre-domaine.vercel.app`
-- Testez le dashboard : `https://votre-domaine.vercel.app/dashboard`
-
-### 2. Configurer un Domaine Personnalisé (Optionnel)
-1. Allez dans **Settings** → **Domains**
-2. Ajoutez votre domaine personnalisé
-3. Configurez les DNS selon les instructions Vercel
-
-### 3. Monitoring et Analytics
-- **Vercel Analytics** : Activé automatiquement
-- **Logs** : Disponibles dans le dashboard Vercel
-- **Performance** : Monitoring automatique
+### Tests Manuels
+1. **Page d'accueil** : Vérifier l'affichage des projets
+2. **Responsivité** : Tester sur mobile/tablet/desktop
+3. **API** : Tester `/api/projects` et `/api/projects/[id]`
+4. **Dashboard** : Vérifier l'interface d'administration
 
 ## 🚨 Dépannage
 
-### Erreurs Communes
+### Problèmes Courants
 
-1. **"Database connection failed"** :
-   - Vérifiez les variables d'environnement
-   - Assurez-vous que `DATABASE_URL` pointe vers `POSTGRES_PRISMA_URL`
-
-2. **"Prisma client not generated"** :
-   - Ajoutez `"postinstall": "prisma generate"` dans package.json
-   - Redéployez le projet
-
-3. **"Build failed"** :
-   - Vérifiez les logs de build dans Vercel
-   - Assurez-vous que tous les imports sont corrects
-
-### Commandes Utiles
-
+#### 1. Erreur de Build
 ```bash
-# Vérifier le statut du déploiement
-vercel ls
-
-# Voir les logs
-vercel logs
-
-# Redéployer
-vercel --prod
-
-# Ouvrir le projet
-vercel open
+# Nettoyer et rebuilder
+rm -rf .next node_modules
+npm install
+npm run build
 ```
 
-## 📊 Performance et Optimisation
+#### 2. Variables d'Environnement Manquantes
+```bash
+# Vérifier les variables Vercel
+vercel env ls production
 
-### Optimisations Automatiques Vercel
-- **Edge Functions** : API routes optimisées
-- **Image Optimization** : Images Next.js optimisées
-- **CDN Global** : Distribution mondiale
-- **Automatic HTTPS** : SSL/TLS automatique
+# Ajouter une variable
+vercel env add VARIABLE_NAME production
+```
 
-### Recommandations
-1. **Images** : Utilisez `next/image` pour l'optimisation
-2. **API Routes** : Limitez la durée à 30s max
-3. **Database** : Utilisez les connexions poolées
-4. **Caching** : Configurez les headers de cache
+#### 3. API Non Fonctionnelle
+- Vérifier les variables Firebase
+- Vérifier les permissions Firestore
+- Consulter les logs Vercel
 
-## 🔐 Sécurité
+#### 4. Projets Non Affichés
+- Vérifier que les cartes ont `h-80`
+- Vérifier la grille responsive
+- Tester l'API `/api/projects`
 
-### Variables d'Environnement Sensibles
-- `DATABASE_URL` : URL de connexion base de données
-- `NEXTAUTH_SECRET` : Clé secrète pour l'authentification
-- `NEXTAUTH_URL` : URL de production
+### Logs Utiles
+```bash
+# Logs en temps réel
+vercel logs --follow
 
-### Bonnes Pratiques
-1. **Ne jamais commiter** les fichiers `.env`
-2. **Utiliser HTTPS** en production
-3. **Limiter les accès** au dashboard
-4. **Sauvegarder régulièrement** la base de données
+# Logs d'une fonction spécifique
+vercel logs --function=api/projects/route
+```
 
-## 📈 Monitoring
+## 📈 Optimisations
 
-### Métriques Disponibles
-- **Performance** : Temps de réponse, Core Web Vitals
-- **Usage** : Requêtes, bande passante
-- **Erreurs** : Logs d'erreur en temps réel
-- **Database** : Connexions, requêtes
+### Performance
+- Images optimisées avec Next.js Image
+- Lazy loading des composants
+- CSS Grid pour la responsivité
+- Animations CSS optimisées
 
-### Alertes
-- Configurez des alertes pour les erreurs critiques
-- Surveillez l'utilisation de la base de données
-- Monitorer les performances
+### Sécurité
+- Variables d'environnement sécurisées
+- Validation des données API
+- CORS configuré
+- Firebase Security Rules
+
+## 🔄 Workflow de Déploiement
+
+1. **Développement** : Modifications locales
+2. **Test** : `./maintenance.sh` → Option 7
+3. **Déploiement** : `./deploy-prod.sh`
+4. **Vérification** : `./verify-prod.sh`
+5. **Monitoring** : `vercel logs`
+
+## 📞 Support
+
+En cas de problème :
+1. Consulter les logs Vercel
+2. Vérifier les variables d'environnement
+3. Tester localement avec `npm run dev`
+4. Utiliser le script de rollback si nécessaire
 
 ---
 
-## 🎉 Félicitations !
-
-Votre portfolio Vr-Ai est maintenant en production ! 
-
-**URLs importantes :**
-- **Portfolio** : `https://votre-domaine.vercel.app`
-- **Dashboard** : `https://votre-domaine.vercel.app/dashboard`
-- **API** : `https://votre-domaine.vercel.app/api/projects`
-
-**Support :**
-- [Documentation Vercel](https://vercel.com/docs)
-- [Documentation Prisma](https://www.prisma.io/docs)
-- [Documentation Next.js](https://nextjs.org/docs)
+**Note** : Tous les scripts incluent des messages colorés et des vérifications d'erreur pour faciliter le débogage.

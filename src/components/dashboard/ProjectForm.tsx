@@ -61,7 +61,7 @@ export default function ProjectForm({
         imageUrl: project.imageUrl || '',
         platformUrl: project.platformUrl || '',
         techStack: project.techStack,
-        projectType: project.projectType || 'web',
+        projectType: (project.projectType as 'web' | 'mobile') || 'web',
         isFeatured: project.isFeatured || false,
         sortOrder: project.sortOrder || 1
       });

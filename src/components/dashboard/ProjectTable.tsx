@@ -2,6 +2,7 @@
 
 import { Project } from '@/types/project';
 import { useState } from 'react';
+import Image from 'next/image';
 
 interface ProjectTableProps {
   projects: Project[];
@@ -94,9 +95,11 @@ export default function ProjectTable({ projects, onEdit, onDelete, onRefresh }: 
                   <div className="flex items-center">
                     <div className="w-12 h-12 rounded-lg overflow-hidden mr-4 flex-shrink-0">
                       {project.imageUrl ? (
-                        <img
+                        <Image
                           src={project.imageUrl}
                           alt={project.title}
+                          width={48}
+                          height={48}
                           className="w-full h-full object-cover"
                         />
                       ) : (

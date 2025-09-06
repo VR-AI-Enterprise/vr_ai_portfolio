@@ -25,7 +25,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       {/* Background avec image du projet */}
       <div className="absolute inset-0">
         <Image
-          src={project.imagePath || project.imageUrl || '/images/placeholder.png'}
+          src={project.imageUrl || '/images/placeholder.png'}
           alt={project.title}
           layout="fill"
           objectFit="cover"

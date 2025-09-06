@@ -113,7 +113,7 @@ export async function createProject(projectData: Omit<Project, 'id' | 'createdAt
     
     // Filtrer les valeurs undefined
     const cleanProjectData = Object.fromEntries(
-      Object.entries(projectData).filter(([_, value]) => value !== undefined)
+      Object.entries(projectData).filter(([, value]) => value !== undefined)
     );
     
     const docRef = await addDoc(projectsRef, {

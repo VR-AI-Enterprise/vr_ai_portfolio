@@ -68,7 +68,6 @@ export async function getProjectById(id: string): Promise<Project | null> {
       id: project.id,
       title: project.title,
       description: project.description || '',
-      imagePath: project.imagePath || undefined,
       imageUrl: project.imageUrl || undefined,
       platformUrl: project.platformUrl || undefined,
       techStack: project.techStack, // Array natif pour PostgreSQL

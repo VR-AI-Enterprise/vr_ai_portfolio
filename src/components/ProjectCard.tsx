@@ -1,6 +1,6 @@
 import { Project } from "@/types/project";
-import Image from "next/image";
 import Link from "next/link";
+import FirebaseImage from "./FirebaseImage";
 
 interface ProjectCardProps {
   project: Project;
@@ -28,7 +28,7 @@ export default function ProjectCard({ project, brickType = 'small' }: ProjectCar
       small: 'from-blue-500/10 to-purple-500/10',
       medium: 'from-purple-500/10 to-pink-500/10',
       large: 'from-pink-500/10 to-red-500/10',
-      tall: 'from-green-500/10 to-blue-500/10',
+      // tall: 'from-green-500/10 to-blue-500/10',
       wide: 'from-yellow-500/10 to-orange-500/10',
       square: 'from-cyan-500/10 to-teal-500/10',
       'mobile-tall': 'from-green-500/10 to-emerald-500/10',
@@ -53,13 +53,20 @@ export default function ProjectCard({ project, brickType = 'small' }: ProjectCar
       
       {/* Background avec image du projet */}
       <div className="absolute inset-0">
-        <Image
-          src={project.imageUrl || '/images/placeholder.png'}
-          alt={project.title}
-          layout="fill"
-          objectFit="cover"
-          className="w-full h-full group-hover:scale-110 transition-transform duration-700"
-        />
+      {project.imageUrl ? (
+                        <FirebaseImage
+                        src={project.imageUrl}
+                        alt={project.title}
+                        width={400}
+                        height={320}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      /> 
+                      ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
+                          {project.title.charAt(0).toUpperCase()}
+                        </div>
+                      )}
+    
         {/* Pattern overlay pour texture */}
         <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] bg-repeat"></div>
       </div>

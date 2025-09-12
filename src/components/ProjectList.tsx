@@ -90,7 +90,7 @@ export default function ProjectList({ initialProjects = [], initialError = null 
         {/* Layout Grid Simple pour tous les écrans */}
         <div className="py-8">
           {/* Grille responsive pour tous les écrans */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 grid-flow-col sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {projects.map((project, index) => (
               <div
                 key={project.id}

@@ -1,12 +1,13 @@
 export interface Project {
-  id: string; // Changé de number à string pour cohérence avec Prisma
+  id: string;
   title: string;
   description: string;
-  imageUrl?: string; // URL de l'image Firebase Storage
+  imageUrl?: string;
+  projectUrl?: string; // URL du projet
+  platformUrl?: string; // Alias pour compatibilité
   techStack: string[];
-  platformUrl?: string;
   isFeatured?: boolean;
-  projectType?: string;
+  projectType?: 'web' | 'mobile';
   sortOrder?: number;
   createdAt?: Date;
   updatedAt?: Date;

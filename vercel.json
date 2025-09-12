@@ -9,5 +9,16 @@
     "src/app/api/**/*.ts": {
       "maxDuration": 30
     }
-  }
+  },
+  "headers": [
+    {
+      "source": "/api/projects",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, s-maxage=30, stale-while-revalidate=60"
+        }
+      ]
+    }
+  ]
 }

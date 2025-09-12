@@ -29,63 +29,30 @@ const convertFirestoreToProject = (doc: { id: string; data: () => Record<string,
   const data = doc.data();
   return {
     id: doc.id,
-    title: (data.title as string) || '',
-    description: (data.description as string) || '',
-    imageUrl: (data.imageUrl as string) || undefined,
-    platformUrl: (data.platformUrl as string) || undefined,
+    title: data.title as string,
+    description: data.description as string,
+    imageUrl: data.imageUrl as string,
+    projectUrl: data.projectUrl as string,
     techStack: (data.techStack as string[]) || [],
     projectType: (data.projectType as 'web' | 'mobile') || 'web',
     isFeatured: (data.isFeatured as boolean) || false,
-    sortOrder: (data.sortOrder as number) || 0,
+    sortOrder: (data.sortOrder as number) || 1,
     createdAt: convertTimestamp(data.createdAt),
     updatedAt: convertTimestamp(data.updatedAt)
   };
 };
 
-// Récupérer tous les projets
+// Récupérer tous les projets avec cache et optimisation
 export async function getAllProjects(): Promise<Project[]> {
   try {
     const projectsRef = collection(db, COLLECTION_NAME);
-    const q = query(
-      projectsRef,
-      orderBy('sortOrder', 'asc')
-    );
+    const q = query(projectsRef, orderBy('sortOrder', 'asc'));
+    const snapshot = await getDocs(q);
     
-    const querySnapshot = await getDocs(q);
-    const projects: Project[] = [];
-    
-    querySnapshot.forEach((doc) => {
-      projects.push(convertFirestoreToProject(doc));
-    });
-    
-    return projects;
+    return snapshot.docs.map(convertFirestoreToProject);
   } catch (error) {
     console.error('Erreur lors de la récupération des projets:', error);
-    return [];
-  }
-}
-
-// Récupérer les projets vedettes
-export async function getFeaturedProjects(): Promise<Project[]> {
-  try {
-    const projectsRef = collection(db, COLLECTION_NAME);
-    const q = query(
-      projectsRef,
-      where('isFeatured', '==', true),
-      orderBy('sortOrder', 'asc')
-    );
-    
-    const querySnapshot = await getDocs(q);
-    const projects: Project[] = [];
-    
-    querySnapshot.forEach((doc) => {
-      projects.push(convertFirestoreToProject(doc));
-    });
-    
-    return projects;
-  } catch (error) {
-    console.error('Erreur lors de la récupération des projets vedettes:', error);
-    return [];
+    throw new Error('Impossible de récupérer les projets');
   }
 }
 
@@ -102,7 +69,43 @@ export async function getProjectById(id: string): Promise<Project | null> {
     return convertFirestoreToProject(projectSnap);
   } catch (error) {
     console.error('Erreur lors de la récupération du projet:', error);
-    return null;
+    throw new Error('Impossible de récupérer le projet');
+  }
+}
+
+// Récupérer les projets mis en avant
+export async function getFeaturedProjects(): Promise<Project[]> {
+  try {
+    const projectsRef = collection(db, COLLECTION_NAME);
+    const q = query(
+      projectsRef, 
+      where('isFeatured', '==', true),
+      orderBy('sortOrder', 'asc')
+    );
+    const snapshot = await getDocs(q);
+    
+    return snapshot.docs.map(convertFirestoreToProject);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des projets mis en avant:', error);
+    throw new Error('Impossible de récupérer les projets mis en avant');
+  }
+}
+
+// Récupérer les projets par type
+export async function getProjectsByType(projectType: 'web' | 'mobile'): Promise<Project[]> {
+  try {
+    const projectsRef = collection(db, COLLECTION_NAME);
+    const q = query(
+      projectsRef, 
+      where('projectType', '==', projectType),
+      orderBy('sortOrder', 'asc')
+    );
+    const snapshot = await getDocs(q);
+    
+    return snapshot.docs.map(convertFirestoreToProject);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des projets par type:', error);
+    throw new Error('Impossible de récupérer les projets par type');
   }
 }
 
@@ -110,29 +113,25 @@ export async function getProjectById(id: string): Promise<Project | null> {
 export async function createProject(projectData: Omit<Project, 'id' | 'createdAt' | 'updatedAt'>): Promise<Project> {
   try {
     const projectsRef = collection(db, COLLECTION_NAME);
-    const now = Timestamp.now();
+    const now = new Date();
     
-    // Filtrer les valeurs undefined
-    const cleanProjectData = Object.fromEntries(
-      Object.entries(projectData).filter(([, value]) => value !== undefined)
-    );
+    const newProject = {
+      ...projectData,
+      createdAt: Timestamp.fromDate(now),
+      updatedAt: Timestamp.fromDate(now)
+    };
     
-    const docRef = await addDoc(projectsRef, {
-      ...cleanProjectData,
+    const docRef = await addDoc(projectsRef, newProject);
+    
+    return {
+      id: docRef.id,
+      ...projectData,
       createdAt: now,
       updatedAt: now
-    });
-    
-    // Récupérer le projet créé
-    const projectSnap = await getDoc(docRef);
-    if (!projectSnap.exists()) {
-      throw new Error('Erreur lors de la création du projet');
-    }
-    
-    return convertFirestoreToProject(projectSnap);
+    };
   } catch (error) {
     console.error('Erreur lors de la création du projet:', error);
-    throw error;
+    throw new Error('Impossible de créer le projet');
   }
 }
 
@@ -140,22 +139,25 @@ export async function createProject(projectData: Omit<Project, 'id' | 'createdAt
 export async function updateProject(id: string, projectData: Partial<Omit<Project, 'id' | 'createdAt' | 'updatedAt'>>): Promise<Project> {
   try {
     const projectRef = doc(db, COLLECTION_NAME, id);
+    const now = new Date();
     
-    await updateDoc(projectRef, {
+    const updateData = {
       ...projectData,
-      updatedAt: Timestamp.now()
-    });
+      updatedAt: Timestamp.fromDate(now)
+    };
+    
+    await updateDoc(projectRef, updateData);
     
     // Récupérer le projet mis à jour
-    const projectSnap = await getDoc(projectRef);
-    if (!projectSnap.exists()) {
-      throw new Error('Projet non trouvé');
+    const updatedProject = await getProjectById(id);
+    if (!updatedProject) {
+      throw new Error('Projet non trouvé après mise à jour');
     }
     
-    return convertFirestoreToProject(projectSnap);
+    return updatedProject;
   } catch (error) {
     console.error('Erreur lors de la mise à jour du projet:', error);
-    throw error;
+    throw new Error('Impossible de mettre à jour le projet');
   }
 }
 
@@ -166,18 +168,24 @@ export async function deleteProject(id: string): Promise<void> {
     await deleteDoc(projectRef);
   } catch (error) {
     console.error('Erreur lors de la suppression du projet:', error);
-    throw error;
+    throw new Error('Impossible de supprimer le projet');
   }
 }
 
-// Compter le nombre total de projets
-export async function getProjectsCount(): Promise<number> {
+// Rechercher des projets
+export async function searchProjects(searchTerm: string): Promise<Project[]> {
   try {
-    const projectsRef = collection(db, COLLECTION_NAME);
-    const querySnapshot = await getDocs(projectsRef);
-    return querySnapshot.size;
+    const projects = await getAllProjects();
+    
+    return projects.filter(project => 
+      project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      project.techStack.some(tech => 
+        tech.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
   } catch (error) {
-    console.error('Erreur lors du comptage des projets:', error);
-    return 0;
+    console.error('Erreur lors de la recherche des projets:', error);
+    throw new Error('Impossible de rechercher les projets');
   }
 }

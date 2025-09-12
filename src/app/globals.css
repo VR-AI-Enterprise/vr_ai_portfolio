@@ -569,6 +569,23 @@ body {
   opacity: 0;
 }
 
+/* Animation pour les cartes de projets */
+@keyframes project-card-in {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-project-card-in {
+  animation: project-card-in 0.8s ease-out forwards;
+  opacity: 0;
+}
+
 /* Animation staggered pour les cartes */
 @keyframes stagger-in {
   0% {

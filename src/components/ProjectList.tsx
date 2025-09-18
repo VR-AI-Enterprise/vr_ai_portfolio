@@ -4,6 +4,7 @@ import { Project } from "@/types/project";
 import { useEffect, useState } from "react";
 import ProjectCard from "./ProjectCard";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface ProjectListProps {}
 
 export default function ProjectList({}: ProjectListProps) {

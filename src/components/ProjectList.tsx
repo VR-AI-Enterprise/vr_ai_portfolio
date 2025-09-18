@@ -4,22 +4,14 @@ import { Project } from "@/types/project";
 import { useEffect, useState } from "react";
 import ProjectCard from "./ProjectCard";
 
-interface ProjectListProps {
-  initialProjects?: Project[];
-  initialError?: string | null;
-}
+interface ProjectListProps {}
 
-export default function ProjectList({ initialProjects = [], initialError = null }: ProjectListProps) {
-  const [projects, setProjects] = useState<Project[]>(initialProjects);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(initialError);
+export default function ProjectList({}: ProjectListProps) {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Si on a déjà des projets initiaux, pas besoin de les recharger
-    if (initialProjects.length > 0) {
-      return;
-    }
-
     const fetchProjects = async () => {
       try {
         setLoading(true);
@@ -37,7 +29,7 @@ export default function ProjectList({ initialProjects = [], initialError = null 
     };
 
     fetchProjects();
-  }, [initialProjects.length]);
+  }, []);
 
   if (loading) {
     return (
@@ -90,7 +82,7 @@ export default function ProjectList({ initialProjects = [], initialError = null 
         {/* Layout Grid Simple pour tous les écrans */}
         <div className="py-8">
           {/* Grille responsive pour tous les écrans */}
-          <div className="grid grid-cols-1 grid-flow-col sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {projects.map((project, index) => (
               <div
                 key={project.id}

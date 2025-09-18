@@ -1,7 +1,7 @@
 import { getApps, initializeApp } from 'firebase/app';
-import { connectAuthEmulator, getAuth } from 'firebase/auth';
-import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
-import { connectStorageEmulator, getStorage } from 'firebase/storage';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 // Configuration Firebase
 const firebaseConfig = {
@@ -26,15 +26,15 @@ export const auth = getAuth(app);
 // Initialiser Storage
 export const storage = getStorage(app);
 
-// Connexion aux émulateurs en développement
-if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
-  try {
-    connectFirestoreEmulator(db, 'localhost', 8080);
-    connectAuthEmulator(auth, 'http://localhost:9099');
-    connectStorageEmulator(storage, 'localhost', 9199);
-  } catch {
-    // Les émulateurs sont déjà connectés
-  }
-}
+// Connexion aux émulateurs en développement (désactivé pour utiliser la base de production)
+// if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
+//   try {
+//     connectFirestoreEmulator(db, 'localhost', 8080);
+//     connectAuthEmulator(auth, 'http://localhost:9099');
+//     connectStorageEmulator(storage, 'localhost', 9199);
+//   } catch {
+//     // Les émulateurs sont déjà connectés
+//   }
+// }
 
 export default app;
